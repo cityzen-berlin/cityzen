@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>City.Zen — Trauma-Sensitive Community Building</title>
+<style>
+  :root {
+    --warm: #fdf8f4;
+    --sand: #f0e4d8;
+    --olive: #d4782a;
+    --olive-light: #e8964e;
+    --earth: #8b6f4e;
+    --deep: #3b2312;
+    --slate: #5a4a3a;
+    --soft-blue: #7ba7bc;
+    --coral: #c4796b;
+    --text: #2d2d2d;
+    --text-light: #5a5a5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--text);
+    background: var(--warm);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* --- NAV --- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(253, 248, 244, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212, 120, 42, 0.15);
+    transition: transform 0.3s ease;
+  }
+  nav.hidden { transform: translateY(-100%); }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 2rem;
+  }
+  .nav-logo {
+    font-size: 1.2rem; font-weight: bold; color: var(--deep);
+    text-decoration: none; letter-spacing: 0.5px;
+  }
+  .nav-logo span { color: var(--olive); }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--slate); font-size: 0.85rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.3px; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--olive); }
+  .hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    width: 28px; height: 20px; position: relative;
+  }
+  .hamburger span {
+    display: block; width: 100%; height: 2px; background: var(--deep);
+    position: absolute; left: 0; transition: all 0.3s;
+  }
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 9px; }
+  .hamburger span:nth-child(3) { top: 18px; }
+
+  /* --- HERO --- */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 6rem 2rem 4rem;
+    background: linear-gradient(160deg, var(--warm) 0%, #f5e6d5 40%, #fdecd8 100%);
+    position: relative;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--warm));
+    pointer-events: none;
+  }
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 400; letter-spacing: -1px;
+    color: var(--deep);
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+  .hero-title .dot { color: var(--olive); }
+  .hero-sub {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
+    color: var(--slate); max-width: 600px;
+    margin-top: 1.5rem; font-weight: 300;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+  .hero-tagline {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-light); max-width: 550px;
+    margin-top: 2rem; font-style: italic;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+  .hero-scroll {
+    margin-top: 3rem;
+    opacity: 0; animation: fadeUp 1s ease 1.2s forwards;
+  }
+  .hero-scroll a {
+    display: inline-block; padding: 0.7rem 2rem;
+    border: 1.5px solid var(--olive);
+    color: var(--olive); text-decoration: none;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.85rem; letter-spacing: 1px;
+    text-transform: uppercase; border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .hero-scroll a:hover {
+    background: var(--olive); color: white;
+  }
+
+  /* --- HERO CONTENT --- */
+  .hero-content {
+    margin-top: 2.5rem;
+    width: 100%; max-width: 800px;
+  }
+  .hero-charts {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .chart-card {
+    background: rgba(255,255,255,0.7); backdrop-filter: blur(8px);
+    border: 1px solid rgba(212,120,42,0.12);
+    border-radius: 10px; padding: 1.4rem 1.5rem;
+    text-align: left; overflow: visible;
+  }
+  .chart-card h3 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--olive);
+    margin-bottom: 1rem; font-weight: 600;
+  }
+  /* Stat grid */
+  .stat-grid-mini {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+  .stat-mini {
+    text-align: center; padding: 0.6rem 0.4rem;
+    border-radius: 6px; background: rgba(212,120,42,0.06);
+  }
+  .stat-mini-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.6rem; font-weight: 700; color: var(--olive);
+    line-height: 1.2;
+  }
+  .stat-mini-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7rem; color: var(--text-light);
+    margin-top: 0.15rem;
+  }
+  .stat-mini.wide { grid-column: 1 / -1; }
+  /* Community bar chart */
+  .community-bars { display: flex; flex-direction: column; gap: 0.7rem; }
+  .comm-bar-row {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.82rem;
+  }
+  .comm-bar-label { width: 70px; flex-shrink: 0; color: var(--text-light); text-align: right; }
+  .comm-bar-track { flex: 1; background: rgba(212,120,42,0.08); border-radius: 4px; height: 24px; }
+  .comm-bar-fill {
+    height: 100%; border-radius: 4px; width: 0;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding-right: 8px; font-size: 0.75rem; font-weight: 600; color: white;
+    transition: width 1.2s cubic-bezier(0.25,0.8,0.25,1);
+  }
+  .comm-bar-detail { flex-shrink: 0; font-size: 0.7rem; color: var(--text-light); width: 72px; }
+  .comm-bar-total {
+    margin-top: 0.4rem; font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.75rem; color: var(--text-light); text-align: center;
+  }
+  /* Vertical grouped bar chart */
+  .vbar-legend {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7rem; color: var(--text-light);
+    margin-top: 0.6rem; justify-content: center;
+  }
+  .vbar-legend-item { display: flex; align-items: center; gap: 0.3rem; }
+  .vbar-legend-dot {
+    width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex-shrink: 0;
+  }
+  .vbar-legend-dot.y2024 { background: var(--sand); border: 1px solid #ccc; }
+  .vbar-legend-dot.y2025 { background: var(--olive); }
+  .vbar-chart {
+    border-left: 1.5px solid rgba(0,0,0,0.1);
+    border-bottom: 1.5px solid rgba(0,0,0,0.1);
+  }
+  .vbar-bar-zone {
+    height: 110px; /* 90px bars + 20px gap at top for value labels */
+    display: flex; align-items: flex-end;
+    padding: 20px 0.5rem 0;
+  }
+  .vbar-groups {
+    display: flex; align-items: flex-end;
+    width: 100%; height: 90px;
+    /* 4 pairs: gap between bars in pair is small, gap between pairs is larger */
+    gap: 3px;
+  }
+  .vbar-col {
+    flex: 1; border-radius: 3px 3px 0 0;
+    height: 0; transition: height 1.2s cubic-bezier(0.25,0.8,0.25,1);
+    position: relative;
+  }
+  /* wider gap between pairs (after col 2, 4, 6) */
+  .vbar-col:nth-child(2),
+  .vbar-col:nth-child(4),
+  .vbar-col:nth-child(6) { margin-right: 6px; }
+  .vbar-col.y2024 { background: var(--sand); border: 1px solid #d0c4b8; border-bottom: none; }
+  .vbar-col.y2025 { background: var(--olive); }
+  .vbar-val {
+    position: absolute; top: -1.15rem; left: 50%; transform: translateX(-50%);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.58rem; font-weight: 700;
+    color: var(--deep); white-space: nowrap;
+  }
+  /* x-axis labels + badges row — completely outside the chart border */
+  .vbar-xlabels {
+    display: flex; padding: 0 0.5rem;
+  }
+  .vbar-xcol {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; padding-top: 0.3rem;
+  }
+  /* align xcols to pairs: each pair is 2 flex-cols wide */
+  .vbar-xcol:not(:last-child) { margin-right: 9px; }
+  .vbar-xlabel {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.63rem; color: var(--text-light);
+    text-align: center; line-height: 1.2;
+  }
+  .vbar-badge {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.6rem; font-weight: 700;
+    color: var(--olive); background: rgba(212,120,42,0.1);
+    padding: 0.1rem 0.35rem; border-radius: 3px; margin-top: 0.2rem;
+  }
+  /* Language chips in chart */
+  .lang-chips {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .lang-chip {
+    padding: 0.3rem 0.7rem; border-radius: 14px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.72rem; font-weight: 500;
+    background: var(--sand); color: var(--slate);
+    border: 1px solid transparent;
+    transition: all 0.3s;
+  }
+  .lang-chip:hover {
+    background: var(--olive); color: white; border-color: var(--olive);
+  }
+  .lang-chip .native { display: block; font-size: 0.65rem; opacity: 0.7; margin-top: 1px; }
+  @media (max-width: 768px) {
+    .hero-charts { grid-template-columns: 1fr; }
+  }
+
+  /* --- SECTIONS --- */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.75rem; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--olive);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 400; color: var(--deep);
+    margin-bottom: 1.5rem; line-height: 1.3;
+  }
+  .section-text {
+    font-size: 1.05rem; color: var(--text-light);
+    max-width: 700px; margin-bottom: 2rem;
+  }
+
+  /* --- ABOUT --- */
+  #about { background: var(--warm); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    margin-top: 2rem;
+  }
+  .about-card {
+    background: white; border-radius: 6px; padding: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .about-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  }
+  .about-card h3 {
+    font-size: 1.1rem; color: var(--deep); margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  .about-card p { font-size: 0.95rem; color: var(--text-light); }
+  .about-fact {
+    display: block; margin-top: 1rem; padding-top: 0.8rem;
+    border-top: 1px solid var(--sand);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.8rem; color: var(--olive); font-style: italic;
+  }
+
+  /* --- LANGUAGES --- */
+  .lang-bar {
+    display: flex; flex-wrap: wrap; gap: 0.8rem;
+    margin-top: 2rem; margin-bottom: 3rem;
+  }
+  .lang-tag {
+    padding: 0.5rem 1.2rem;
+    background: white; border: 1px solid var(--sand);
+    border-radius: 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.85rem; color: var(--slate);
+    transition: all 0.3s; cursor: default;
+  }
+  .lang-tag:hover {
+    background: var(--olive); color: white; border-color: var(--olive);
+  }
+  .lang-native {
+    display: block; font-size: 0.75rem; color: var(--olive);
+    margin-top: 2px;
+  }
+
+  /* --- IMPACT / STATS --- */
+  #impact { background: var(--deep); color: white; }
+  #impact .section-label { color: var(--olive-light); }
+  #impact .section-title { color: white; }
+  #impact .section-text { color: rgba(255,255,255,0.7); }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem; margin-top: 2.5rem;
+  }
+  .stat-item { text-align: center; }
+  .stat-number {
+    font-size: 3rem; font-weight: 300; color: var(--olive-light);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .stat-label {
+    font-size: 0.9rem; color: rgba(255,255,255,0.7);
+    margin-top: 0.3rem;
+  }
+  .stat-detail {
+    font-size: 0.75rem; color: rgba(255,255,255,0.4);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin-top: 0.3rem;
+  }
+
+  /* --- APPROACH --- */
+  #approach { background: white; }
+  .approach-items { margin-top: 2rem; }
+  .approach-item {
+    display: flex; gap: 1.5rem; padding: 1.5rem 0;
+    border-bottom: 1px solid var(--sand);
+    cursor: pointer; transition: background 0.2s;
+  }
+  .approach-item:hover { background: rgba(212,120,42,0.04); }
+  .approach-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: var(--warm); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .approach-content { flex: 1; }
+  .approach-content h3 {
+    font-size: 1.05rem; color: var(--deep); margin-bottom: 0.3rem;
+  }
+  .approach-content p {
+    font-size: 0.9rem; color: var(--text-light);
+  }
+  .approach-expand {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    font-size: 0.88rem; color: var(--text-light);
+    line-height: 1.6;
+  }
+  .approach-item.open .approach-expand {
+    max-height: 300px; padding-top: 0.8rem;
+  }
+  .approach-toggle {
+    flex-shrink: 0; align-self: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.2rem; color: var(--olive);
+    transition: transform 0.3s;
+  }
+  .approach-item.open .approach-toggle { transform: rotate(45deg); }
+
+  /* --- OBJECTIVES --- */
+  #objectives { background: var(--warm); }
+  .obj-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-top: 2rem;
+  }
+  .obj-card {
+    background: white; border-radius: 6px; padding: 1.8rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    cursor: pointer; transition: all 0.3s; position: relative;
+    overflow: hidden;
+  }
+  .obj-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%; background: var(--olive);
+    transform: scaleY(0); transform-origin: top;
+    transition: transform 0.3s;
+  }
+  .obj-card:hover::before, .obj-card.active::before { transform: scaleY(1); }
+  .obj-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .obj-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--olive);
+    margin-bottom: 0.5rem;
+  }
+  .obj-card h3 {
+    font-size: 1rem; color: var(--deep); margin-bottom: 0.5rem;
+  }
+  .obj-card p {
+    font-size: 0.88rem; color: var(--text-light);
+  }
+  .obj-action {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease;
+    font-size: 0.82rem; color: var(--olive);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    border-top: 1px solid var(--sand);
+    margin-top: 0;
+  }
+  .obj-card.active .obj-action {
+    max-height: 200px; margin-top: 0.8rem; padding-top: 0.8rem;
+  }
+
+  /* --- TIMELINE / 2026 PLAN --- */
+  #plan { background: white; }
+  .timeline { margin-top: 2.5rem; position: relative; padding-left: 2.5rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: var(--sand);
+  }
+  .tl-item {
+    position: relative; margin-bottom: 2rem;
+    opacity: 0; transform: translateX(-20px);
+    transition: all 0.6s ease;
+  }
+  .tl-item.visible { opacity: 1; transform: translateX(0); }
+  .tl-item::before {
+    content: ''; position: absolute;
+    left: -2.5rem; top: 0.6rem;
+    width: 12px; height: 12px;
+    background: var(--warm); border: 2px solid var(--olive);
+    border-radius: 50%; transition: background 0.3s;
+  }
+  .tl-item.visible::before { background: var(--olive); }
+  .tl-item h3 {
+    font-size: 1rem; color: var(--deep); margin-bottom: 0.3rem;
+  }
+  .tl-item p {
+    font-size: 0.9rem; color: var(--text-light);
+  }
+  .tl-tag {
+    display: inline-block; margin-top: 0.5rem;
+    padding: 0.2rem 0.7rem; border-radius: 3px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .tl-tag.training { background: #fde8d4; color: var(--olive); }
+  .tl-tag.event { background: #f0e8e4; color: var(--coral); }
+  .tl-tag.media { background: #e4ecf0; color: var(--soft-blue); }
+
+  /* --- QUOTE --- */
+  .quote-section {
+    background: linear-gradient(160deg, var(--deep) 0%, #5a3318 100%);
+    color: white; text-align: center; padding: 5rem 2rem;
+  }
+  .quote-text {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-style: italic; max-width: 700px;
+    margin: 0 auto; line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+  }
+  .quote-attr {
+    margin-top: 1.5rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.8rem; letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--olive-light);
+  }
+
+  /* --- FOOTER --- */
+  footer {
+    background: var(--deep); color: rgba(255,255,255,0.6);
+    padding: 3rem 2rem; text-align: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--olive-light); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .footer-links {
+    display: flex; justify-content: center; gap: 2rem;
+    margin-bottom: 1.5rem; flex-wrap: wrap;
+  }
+
+  /* --- ANIMATIONS --- */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in {
+    opacity: 0; transform: translateY(25px);
+    transition: all 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(253,248,244,0.98);
+      padding: 1rem 2rem 1.5rem; gap: 1rem;
+      border-bottom: 1px solid var(--sand);
+    }
+    .about-grid, .obj-grid { grid-template-columns: 1fr; }
+    section { padding: 3.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">City<span>.</span>Zen</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#objectives">Objectives</a></li>
+      <li><a href="#plan">2026 Plan</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <h1 class="hero-title">City<span class="dot">.</span>Zen</h1>
+  <p class="hero-sub">Trauma-Sensitive Community Building for Refugees and Migrants</p>
+  <p class="hero-tagline">Creating safe spaces where healing, resilience, and belonging grow together — across languages, cultures, and communities.</p>
+
+  <!-- Hero Content: Charts -->
+  <div class="hero-content" style="opacity:0;transform:translateY(20px);animation:fadeUp 1s ease 1s forwards;">
+  <div class="hero-charts" id="heroCharts">
+
+    <!-- Programme Reach (stat grid) -->
+    <div class="chart-card">
+      <h3>Programme Reach — January to December 2025</h3>
+      <div class="stat-grid-mini">
+        <div class="stat-mini">
+          <div class="stat-mini-num">127+</div>
+          <div class="stat-mini-label">Activities</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num">773+</div>
+          <div class="stat-mini-label">Participants</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num">6</div>
+          <div class="stat-mini-label">Languages</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num">20+</div>
+          <div class="stat-mini-label">Venues</div>
+        </div>
+        <div class="stat-mini wide">
+          <div class="stat-mini-num">6+</div>
+          <div class="stat-mini-label">Refugee Shelters Reached</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Community Breakdown (bar chart) -->
+    <div class="chart-card">
+      <h3>Community Breakdown — Participants</h3>
+      <div class="community-bars">
+        <div class="comm-bar-row">
+          <span class="comm-bar-label">Arabic</span>
+          <div class="comm-bar-track">
+            <div class="comm-bar-fill" data-width="100%" style="background:var(--olive);">279</div>
+          </div>
+          <span class="comm-bar-detail">46 activities</span>
+        </div>
+        <div class="comm-bar-row">
+          <span class="comm-bar-label">Farsi/Dari</span>
+          <div class="comm-bar-track">
+            <div class="comm-bar-fill" data-width="83%" style="background:var(--olive-light);">232</div>
+          </div>
+          <span class="comm-bar-detail">43 activities</span>
+        </div>
+        <div class="comm-bar-row">
+          <span class="comm-bar-label">Ukrainian</span>
+          <div class="comm-bar-track">
+            <div class="comm-bar-fill" data-width="60%" style="background:var(--soft-blue);">168</div>
+          </div>
+          <span class="comm-bar-detail">20 activities</span>
+        </div>
+        <div class="comm-bar-row">
+          <span class="comm-bar-label">Russian</span>
+          <div class="comm-bar-track">
+            <div class="comm-bar-fill" data-width="34%" style="background:var(--sand);color:var(--slate);">94</div>
+          </div>
+          <span class="comm-bar-detail">18 activities</span>
+        </div>
+        <div class="comm-bar-total"><strong>773+ participants</strong> · <strong>127 activities</strong> · bars show participant count</div>
+      </div>
+    </div>
+
+    <!-- 2024 Pilot vs 2025 Programme -->
+    <div class="chart-card">
+      <h3>2024 Pilot vs 2025 Programme</h3>
+      <div class="vbar-chart" id="vbarChart">
+        <div class="vbar-bar-zone">
+          <div class="vbar-groups">
+            <div class="vbar-col y2024" data-pct="32"><span class="vbar-val">41</span></div>
+            <div class="vbar-col y2025" data-pct="100"><span class="vbar-val">127</span></div>
+            <div class="vbar-col y2024" data-pct="26"><span class="vbar-val">200+</span></div>
+            <div class="vbar-col y2025" data-pct="100"><span class="vbar-val">773+</span></div>
+            <div class="vbar-col y2024" data-pct="25"><span class="vbar-val">1</span></div>
+            <div class="vbar-col y2025" data-pct="100"><span class="vbar-val">4</span></div>
+            <div class="vbar-col y2024" data-pct="62"><span class="vbar-val">13</span></div>
+            <div class="vbar-col y2025" data-pct="100"><span class="vbar-val">21</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="vbar-xlabels">
+        <div class="vbar-xcol">
+          <div class="vbar-xlabel">Activities</div>
+          <div class="vbar-badge">3×</div>
+        </div>
+        <div class="vbar-xcol">
+          <div class="vbar-xlabel">Participants</div>
+          <div class="vbar-badge">3.8×</div>
+        </div>
+        <div class="vbar-xcol">
+          <div class="vbar-xlabel">Communities</div>
+          <div class="vbar-badge">4×</div>
+        </div>
+        <div class="vbar-xcol">
+          <div class="vbar-xlabel">Volunteers</div>
+          <div class="vbar-badge">+62%</div>
+        </div>
+      </div>
+      <div class="vbar-legend">
+        <span class="vbar-legend-item"><span class="vbar-legend-dot y2024"></span>2024</span>
+        <span class="vbar-legend-item"><span class="vbar-legend-dot y2025"></span>2025</span>
+      </div>
+    </div>
+
+    <!-- Languages Covered -->
+    <div class="chart-card">
+      <h3>Languages Covered</h3>
+      <div class="lang-chips">
+        <span class="lang-chip">العربية<span class="native">Arabic</span></span>
+        <span class="lang-chip">فارسی / دری<span class="native">Farsi / Dari</span></span>
+        <span class="lang-chip">Українська<span class="native">Ukrainian</span></span>
+        <span class="lang-chip">Русский<span class="native">Russian</span></span>
+        <span class="lang-chip">English<span class="native">English</span></span>
+        <span class="lang-chip">Հայերեն<span class="native">Armenian</span></span>
+      </div>
+    </div>
+
+  </div>
+  </div><!-- /hero-content -->
+
+  <div class="hero-scroll">
+    <a href="#about">Discover the project</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About the Project</div>
+    <h2 class="section-title">Building bridges through empathy</h2>
+    <p class="section-text">
+      Delivered by <strong>IPSO gGmbH</strong> (International Psychosocial Organisation) in Friedrichshain-Kreuzberg, Berlin, the City.Zen project integrates professional psychosocial support with community-led programming. Trained community mobilizers — themselves from refugee and migrant backgrounds — design and deliver workshops, peer support groups, and creative activities under professional supervision.
+    </p>
+
+    <div class="lang-bar">
+      <span class="lang-tag">العربية<span class="lang-native">Arabic</span></span>
+      <span class="lang-tag">فارسی / دری<span class="lang-native">Farsi / Dari</span></span>
+      <span class="lang-tag">Українська<span class="lang-native">Ukrainian</span></span>
+      <span class="lang-tag">Русский<span class="lang-native">Russian</span></span>
+      <span class="lang-tag">English<span class="lang-native">English</span></span>
+      <span class="lang-tag">Հայերեն<span class="lang-native">Armenian</span></span>
+    </div>
+
+    <div class="about-grid fade-in">
+      <div class="about-card">
+        <h3>Community Mobilizers</h3>
+        <p>
+          Individuals from refugee and migrant backgrounds trained to organise peer support groups, workshops, and community dialogues. In 2025, Arabic community volunteers delivered eight original projects reaching over 110 participants.
+        </p>
+        <span class="about-fact">
+          The mobiliser model — from identification, to training, to supervised delivery — is the structural heart of City.Zen.
+        </span>
+      </div>
+      <div class="about-card">
+        <h3>Value Based Counselling (VBC)</h3>
+        <p>
+          IPSO's culturally sensitive, client-centred approach offers support in the client's native language. Since 2017, IPSO has delivered over 87,000 counselling sessions worldwide through its online platform.
+        </p>
+        <span class="about-fact">
+          VBC is a short-term intervention that restores psychological resilience, enabling individuals to navigate challenges and integrate successfully.
+        </span>
+      </div>
+      <div class="about-card">
+        <h3>Creative &amp; Cultural Formats</h3>
+        <p>
+          Puppet theatre, storytelling, film screenings, writing workshops, community cookbooks, and cultural outings serve as vehicles for psychosocial support — building connection and restoring agency.
+        </p>
+        <span class="about-fact">
+          Creative formats consistently attracted strong attendance, often from people who had not previously engaged with mental health services.
+        </span>
+      </div>
+      <div class="about-card">
+        <h3>Three-Layer Approach</h3>
+        <p>
+          Professional psychosocial support, community mobiliser leadership, and structural outreach work together. Art and creativity are central — not peripheral — to trauma-sensitive community building.
+        </p>
+        <span class="about-fact">
+          Individual relationships create trust for group settings; group settings open doors to individual counselling. The two modes amplify each other.
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="container">
+    <div class="section-label">Programme Impact</div>
+    <h2 class="section-title">January – December 2025</h2>
+    <p class="section-text">
+      In its first full programme year, City.Zen reached over 773 participants across 127 activities in four languages — from individual counselling to film screenings, writing workshops, and community-led creative projects.
+    </p>
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <div class="stat-number" data-target="127">0</div>
+        <div class="stat-label">Activities</div>
+        <div class="stat-detail">across 20+ venues</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number" data-target="773">0</div>
+        <div class="stat-label">Participants</div>
+        <div class="stat-detail">from refugee shelters and communities</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number" data-target="46">0</div>
+        <div class="stat-label">Arabic sessions</div>
+        <div class="stat-detail">279 participants</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number" data-target="43">0</div>
+        <div class="stat-label">Farsi/Dari sessions</div>
+        <div class="stat-detail">232 participants</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number" data-target="20">0</div>
+        <div class="stat-label">Ukrainian sessions</div>
+        <div class="stat-detail">168 participants</div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number" data-target="18">0</div>
+        <div class="stat-label">Russian sessions</div>
+        <div class="stat-detail">94 participants</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach">
+  <div class="container">
+    <div class="section-label">Our Approach</div>
+    <h2 class="section-title">A multimodal path to resilience</h2>
+    <p class="section-text">
+      The project operates through three interlocking layers, with art and creativity as central vehicles for psychosocial support.
+    </p>
+    <div class="approach-items">
+
+      <div class="approach-item" onclick="toggleApproach(this)">
+        <div class="approach-icon">&#9825;</div>
+        <div class="approach-content">
+          <h3>Professional Psychosocial Support</h3>
+          <p>Trained IPSO counsellors provide individual sessions, facilitate support groups, and supervise all community-led activities. All work is grounded in Value Based Counselling (VBC) and trauma-informed practice.</p>
+          <div class="approach-expand">
+            Weekly individual counselling sessions offered low-barrier, walk-in psychosocial support. Three parallel Arab women's support groups ran throughout the year, offering sustained therapeutic space to over 30 women.
+          </div>
+        </div>
+        <div class="approach-toggle">+</div>
+      </div>
+
+      <div class="approach-item" onclick="toggleApproach(this)">
+        <div class="approach-icon">&#9734;</div>
+        <div class="approach-content">
+          <h3>Community Mobiliser Leadership</h3>
+          <p>Individuals from refugee and migrant backgrounds are trained and supported to design and deliver their own workshops and projects — ensuring cultural authenticity, peer trust, and sustainable community ownership.</p>
+          <div class="approach-expand">
+            In 2025, Arabic community volunteers delivered eight original workshops reaching 110+ participants. Twenty-one volunteers across all four communities completed structured training. The supervision process produced capable, reflective practitioners with skills in facilitation, group dynamics, and participatory design.
+          </div>
+        </div>
+        <div class="approach-toggle">+</div>
+      </div>
+
+      <div class="approach-item" onclick="toggleApproach(this)">
+        <div class="approach-icon">&#9835;</div>
+        <div class="approach-content">
+          <h3>Creative &amp; Cultural Programming</h3>
+          <p>Puppet theatre, storytelling, film screenings, writing workshops, and community outings serve therapeutic purposes: building connection, providing language for difficult experiences, and restoring agency.</p>
+          <div class="approach-expand">
+            A five-session film screening programme at Bona Cultural Centre brought together refugees, migrants, and Berlin residents. Three writing workshops used English as a shared neutral space across all language communities.
+          </div>
+        </div>
+        <div class="approach-toggle">+</div>
+      </div>
+
+      <div class="approach-item" onclick="toggleApproach(this)">
+        <div class="approach-icon">&#9741;</div>
+        <div class="approach-content">
+          <h3>Structural Outreach &amp; Networking</h3>
+          <p>Consistent presence at refugee shelters, partnerships with community venues and NGOs, and participation in Berlin-wide dialogues ensure the project is embedded in the communities it serves.</p>
+          <div class="approach-expand">
+            The team maintained partnerships with 15+ organisations including Bona Peiser, RuDi, Work-Out E.V., Refugio Berlin, Berlinische Galerie, and 6+ refugee shelters. A landmark networking event at Refugio Berlin drew 80 participants.
+          </div>
+        </div>
+        <div class="approach-toggle">+</div>
+      </div>
+
+      <div class="approach-item" onclick="toggleApproach(this)">
+        <div class="approach-icon">&#9876;</div>
+        <div class="approach-content">
+          <h3>Psychoeducation &amp; Life Skills</h3>
+          <p>Structured workshop series address daily challenges of migration — from sleep disorders and stress management to discrimination, seasonal depression, and decision-making under uncertainty.</p>
+          <div class="approach-expand">
+            The Farsi/Dari life-skills series reached 8–13 participants per session covering loneliness, self-confidence, stress management, discrimination, and seasonal depression. Ukrainian workshops addressed media literacy, public speaking, and anxiety.
+          </div>
+        </div>
+        <div class="approach-toggle">+</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section id="objectives">
+  <div class="container">
+    <div class="section-label">Project Objectives</div>
+    <h2 class="section-title">Six goals for lasting change</h2>
+    <p class="section-text">
+      Click any objective to see the concrete actions being taken to achieve it.
+    </p>
+    <div class="obj-grid">
+
+      <div class="obj-card fade-in" onclick="toggleObj(this)">
+        <div class="obj-num">Objective 01</div>
+        <h3>Establish a Supportive Network</h3>
+        <p>Create meaningful connections among diverse groups — volunteers, new arrivals, and native community members.</p>
+        <div class="obj-action">
+          Identify and recruit community volunteers; organise meet-and-greet events; create platforms for ongoing communication and resource sharing.
+        </div>
+      </div>
+
+      <div class="obj-card fade-in" onclick="toggleObj(this)">
+        <div class="obj-num">Objective 02</div>
+        <h3>Organise Joint Events</h3>
+        <p>Facilitate events that encourage dialogue and shared experiences focused on trauma-informed practices.</p>
+        <div class="obj-action">
+          Plan storytelling nights, panel discussions, cultural exchanges, film screenings, and writing workshops.
+        </div>
+      </div>
+
+      <div class="obj-card fade-in" onclick="toggleObj(this)">
+        <div class="obj-num">Objective 03</div>
+        <h3>Promote Trauma Awareness</h3>
+        <p>Educate community members about the impact of trauma on mental health and well-being.</p>
+        <div class="obj-action">
+          Host workshops led by mental health professionals covering trauma-informed care, coping strategies, and empathy.
+        </div>
+      </div>
+
+      <div class="obj-card fade-in" onclick="toggleObj(this)">
+        <div class="obj-num">Objective 04</div>
+        <h3>Encourage Collaborative Projects</h3>
+        <p>Create opportunities for interaction and relationship-building through shared creative work.</p>
+        <div class="obj-action">
+          Initiate community art projects, local celebrations, and cultural showcases involving participants from various backgrounds.
+        </div>
+      </div>
+
+      <div class="obj-card fade-in" onclick="toggleObj(this)">
+        <div class="obj-num">Objective 05</div>
+        <h3>Empower Immigrants and Citizens</h3>
+        <p>Ensure immigrants feel valued and engaged, contributing to their sense of belonging.</p>
+        <div class="obj-action">
+          Develop mentorship and supervision programmes; provide platforms for immigrants to share skills; encourage participation in decision-making.
+        </div>
+      </div>
+
+      <div class="obj-card fade-in" onclick="toggleObj(this)">
+        <div class="obj-num">Objective 06</div>
+        <h3>Utilise Art for Expression</h3>
+        <p>Leverage art to transcend language and cultural barriers, allowing individuals to express their experiences.</p>
+        <div class="obj-action">
+          Organise creative workshops in visual arts, music, theatre, and writing, followed by facilitated discussions.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <blockquote class="quote-text fade-in">
+    "The numbers matter for accountability. But they do not capture the woman who walked into a communal Iftar trembling and walked out with a doctor's appointment finally in her diary."
+  </blockquote>
+  <p class="quote-attr fade-in">— From the City.Zen Annual Report 2025</p>
+</div>
+
+<!-- 2026 PLAN -->
+<section id="plan">
+  <div class="container">
+    <div class="section-label">Looking Ahead</div>
+    <h2 class="section-title">The 2026 roadmap</h2>
+    <p class="section-text">
+      Building on 127 activities and 773+ participants in 2025, the project deepens community ownership, expands cross-community programming, and builds its evidence base.
+    </p>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <h3>Expand Film Screening Programme</h3>
+        <p>Scale from 5 to 10+ screenings at Bona Cultural Centre — the format's power as a low-threshold, cross-community entry point is proven.</p>
+        <span class="tl-tag media">Media</span>
+      </div>
+
+      <div class="tl-item">
+        <h3>Run Two Full Mobiliser Training Cycles</h3>
+        <p>Run two full training cycles in 2026 — each comprising 3 face-to-face days at RuDi plus 2 online sessions — formalising the curriculum as a replicable model.</p>
+        <span class="tl-tag training">Training</span>
+      </div>
+
+      <div class="tl-item">
+        <h3>Extend Volunteer Projects to All Communities</h3>
+        <p>Replicate the Arabic volunteer project model across Farsi/Dari, Ukrainian, and Russian communities. Support 2–3 community-led projects per language.</p>
+        <span class="tl-tag event">Event</span>
+      </div>
+
+      <div class="tl-item">
+        <h3>Grow Russian Community Programme</h3>
+        <p>Conduct community needs assessment, recruit additional Russian-speaking mobiliser, and expand outreach to Russian-speaking shelters.</p>
+        <span class="tl-tag event">Event</span>
+      </div>
+
+      <div class="tl-item">
+        <h3>Launch Community Conference</h3>
+        <p>Organise a one-day conference on trauma-sensitive communities, featuring community volunteer speakers and bringing together practitioners and policymakers.</p>
+        <span class="tl-tag event">Event</span>
+      </div>
+
+      <div class="tl-item">
+        <h3>Develop Podcast Series</h3>
+        <p>Produce 5 episodes featuring community members, project team, and partners — in Arabic, Farsi/Dari, Ukrainian, Russian, and English.</p>
+        <span class="tl-tag media">Media</span>
+      </div>
+
+      <div class="tl-item">
+        <h3>Implement Systematic Monitoring</h3>
+        <p>Standardise session recording, introduce participant wellbeing check-ins, and build quarterly reporting routines.</p>
+        <span class="tl-tag training">Training</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="https://ipsocontext.org/de" target="_blank">IPSO</a>
+    <a href="#about">About</a>
+    <a href="#impact">Impact</a>
+    <a href="#plan">2026 Plan</a>
+  </div>
+  <p>
+    City.Zen — A project by <a href="https://ipsocontext.org/de" target="_blank">IPSO gGmbH</a>
+    in collaboration with Partizipationsbüro Friedrichshain-Kreuzberg Berlin
+  </p>
+  <p style="margin-top:0.5rem;font-size:0.75rem;color:rgba(255,255,255,0.35);">
+    Dr. Emad Ahmadi (Project Manager) · Maryam Gardisi (Managing Director)
+  </p>
+</footer>
+
+<script>
+// --- NAV HIDE/SHOW ON SCROLL ---
+let lastScroll = 0;
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  const curr = window.scrollY;
+  if (curr > lastScroll && curr > 80) nav.classList.add('hidden');
+  else nav.classList.remove('hidden');
+  lastScroll = curr;
+});
+
+// --- HAMBURGER ---
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+// Close mobile nav on link click
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// --- SCROLL ANIMATIONS ---
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Animate stat counters
+      if (entry.target.querySelector('.stat-number')) {
+        animateCounter(entry.target.querySelector('.stat-number'));
+      }
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in, .tl-item').forEach(el => observer.observe(el));
+
+// --- COUNTER ANIMATION ---
+function animateCounter(el) {
+  if (el.dataset.animated) return;
+  el.dataset.animated = 'true';
+  const target = parseInt(el.dataset.target);
+  const duration = 1500;
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out quad
+    const eased = 1 - (1 - progress) * (1 - progress);
+    el.textContent = Math.round(eased * target);
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+// Also observe stat items individually
+document.querySelectorAll('.stat-item').forEach(el => observer.observe(el));
+
+// --- APPROACH ACCORDION ---
+function toggleApproach(item) {
+  const wasOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.approach-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// --- OBJECTIVE CARD TOGGLE ---
+function toggleObj(card) {
+  const wasActive = card.classList.contains('active');
+  document.querySelectorAll('.obj-card').forEach(c => c.classList.remove('active'));
+  if (!wasActive) card.classList.add('active');
+}
+
+// --- HERO CHART ANIMATIONS ---
+const chartObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    // Animate vertical bars
+    entry.target.querySelectorAll('.vbar-col').forEach((bar, i) => {
+      const pct = parseFloat(bar.dataset.pct);
+      setTimeout(() => { bar.style.height = (pct * 1.0) + 'px'; }, i * 120);
+    });
+    // Animate community breakdown bars
+    entry.target.querySelectorAll('.comm-bar-fill').forEach((bar, i) => {
+      setTimeout(() => { bar.style.width = bar.dataset.width; }, i * 150);
+    });
+    chartObs.unobserve(entry.target);
+  });
+}, { threshold: 0.2 });
+const heroCharts = document.getElementById('heroCharts');
+if (heroCharts) chartObs.observe(heroCharts);
+</script>
+
+</body>
+</html>
