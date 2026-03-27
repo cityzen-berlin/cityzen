@@ -447,43 +447,6 @@
     max-height: 200px; margin-top: 0.8rem; padding-top: 0.8rem;
   }
 
-  /* --- TIMELINE / 2026 PLAN --- */
-  #plan { background: white; }
-  .timeline { margin-top: 2.5rem; position: relative; padding-left: 2.5rem; }
-  .timeline::before {
-    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
-    width: 2px; background: var(--sand);
-  }
-  .tl-item {
-    position: relative; margin-bottom: 2rem;
-    opacity: 0; transform: translateX(-20px);
-    transition: all 0.6s ease;
-  }
-  .tl-item.visible { opacity: 1; transform: translateX(0); }
-  .tl-item::before {
-    content: ''; position: absolute;
-    left: -2.5rem; top: 0.6rem;
-    width: 12px; height: 12px;
-    background: var(--warm); border: 2px solid var(--olive);
-    border-radius: 50%; transition: background 0.3s;
-  }
-  .tl-item.visible::before { background: var(--olive); }
-  .tl-item h3 {
-    font-size: 1rem; color: var(--deep); margin-bottom: 0.3rem;
-  }
-  .tl-item p {
-    font-size: 0.9rem; color: var(--text-light);
-  }
-  .tl-tag {
-    display: inline-block; margin-top: 0.5rem;
-    padding: 0.2rem 0.7rem; border-radius: 3px;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 0.7rem; letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-  .tl-tag.training { background: #fde8d4; color: var(--olive); }
-  .tl-tag.event { background: #f0e8e4; color: var(--coral); }
-  .tl-tag.media { background: #e4ecf0; color: var(--soft-blue); }
 
   /* --- QUOTE --- */
   .quote-section {
@@ -555,7 +518,6 @@
       <li><a href="#impact">Impact</a></li>
       <li><a href="#approach">Approach</a></li>
       <li><a href="#objectives">Objectives</a></li>
-      <li><a href="#plan">2026 Plan</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -586,7 +548,7 @@
           <div class="stat-mini-label">Participants</div>
         </div>
         <div class="stat-mini">
-          <div class="stat-mini-num">6</div>
+          <div class="stat-mini-num">5</div>
           <div class="stat-mini-label">Languages</div>
         </div>
         <div class="stat-mini">
@@ -686,7 +648,6 @@
         <span class="lang-chip">Українська<span class="native">Ukrainian</span></span>
         <span class="lang-chip">Русский<span class="native">Russian</span></span>
         <span class="lang-chip">English<span class="native">English</span></span>
-        <span class="lang-chip">Հայերեն<span class="native">Armenian</span></span>
       </div>
     </div>
 
@@ -704,7 +665,7 @@
     <div class="section-label">About the Project</div>
     <h2 class="section-title">Building bridges through empathy</h2>
     <p class="section-text">
-      Delivered by <strong>IPSO gGmbH</strong> (International Psychosocial Organisation) in Friedrichshain-Kreuzberg, Berlin, the City.Zen project integrates professional psychosocial support with community-led programming. Trained community mobilizers from refugee and migrant backgrounds design and deliver workshops, peer support groups, and creative activities under professional supervision.
+      Delivered by <strong>IPSO gGmbH</strong> (International Psychosocial Organisation) in Friedrichshain-Kreuzberg, Berlin, the City.Zen project integrates professional psychosocial support with community-led programming. Trained community volunteers from refugee and migrant backgrounds design and deliver workshops, peer support groups, and creative activities under professional supervision.
     </p>
 
     <div class="lang-bar">
@@ -713,17 +674,16 @@
       <span class="lang-tag">Українська<span class="lang-native">Ukrainian</span></span>
       <span class="lang-tag">Русский<span class="lang-native">Russian</span></span>
       <span class="lang-tag">English<span class="lang-native">English</span></span>
-      <span class="lang-tag">Հայերեն<span class="lang-native">Armenian</span></span>
     </div>
 
     <div class="about-grid fade-in">
       <div class="about-card">
-        <h3>Community Mobilizers</h3>
+        <h3>Community Volunteers</h3>
         <p>
           Individuals from refugee and migrant backgrounds trained to organise peer support groups, workshops, and community dialogues. In 2025, Arabic community volunteers delivered eight original projects reaching over 110 participants.
         </p>
         <span class="about-fact">
-          The mobiliser model (from identification, to training, to supervised delivery) is the structural heart of City.Zen.
+          The volunteers model (from identification, to training, to supervised delivery) is the structural heart of City.Zen.
         </span>
       </div>
       <div class="about-card">
@@ -747,7 +707,7 @@
       <div class="about-card">
         <h3>Three-Layer Approach</h3>
         <p>
-          Professional psychosocial support, community mobiliser leadership, and structural outreach work together. Art and creativity are central to trauma-sensitive community building, not peripheral.
+          Professional psychosocial support, community volunteer leadership, and structural outreach work together. Art and creativity are central to trauma-sensitive community building, not peripheral.
         </p>
         <span class="about-fact">
           Individual relationships create trust for group settings; group settings open doors to individual counselling. The two modes amplify each other.
@@ -763,7 +723,7 @@
     <div class="section-label">Programme Impact</div>
     <h2 class="section-title">January to December 2025</h2>
     <p class="section-text">
-      In its first full programme year, City.Zen reached over 773 participants across 127 activities in six languages, including individual counselling, film screenings, writing workshops, and community-led creative projects.
+      In its first full programme year, City.Zen reached over 773 participants across 127 activities in five languages, including individual counselling, film screenings, writing workshops, and community-led creative projects.
     </p>
     <div class="stats-grid">
       <div class="stat-item fade-in">
@@ -825,7 +785,7 @@
       <div class="approach-item" onclick="toggleApproach(this)">
         <div class="approach-icon">&#9734;</div>
         <div class="approach-content">
-          <h3>Community Mobiliser Leadership</h3>
+          <h3>Community Volunteer Leadership</h3>
           <p>Individuals from refugee and migrant backgrounds are trained and supported to design and deliver their own workshops and projects, ensuring cultural authenticity, peer trust, and sustainable community ownership.</p>
           <div class="approach-expand">
             In 2025, Arabic community volunteers delivered eight original workshops reaching 110+ participants. Twenty-one volunteers across all four communities completed structured training. The supervision process produced capable, reflective practitioners with skills in facilitation, group dynamics, and participatory design.
@@ -950,61 +910,6 @@
   <p class="quote-attr fade-in">From the City.Zen Annual Report 2025</p>
 </div>
 
-<!-- 2026 PLAN -->
-<section id="plan">
-  <div class="container">
-    <div class="section-label">Looking Ahead</div>
-    <h2 class="section-title">The 2026 roadmap</h2>
-    <p class="section-text">
-      Building on 127 activities and 773+ participants in 2025, the project deepens community ownership, expands cross-community programming, and builds its evidence base.
-    </p>
-    <div class="timeline">
-
-      <div class="tl-item">
-        <h3>Expand Film Screening Programme</h3>
-        <p>Scale from 5 to 10+ screenings at Bona Cultural Centre. The format's power as a low-threshold, cross-community entry point is proven.</p>
-        <span class="tl-tag media">Media</span>
-      </div>
-
-      <div class="tl-item">
-        <h3>Run Two Full Mobiliser Training Cycles</h3>
-        <p>Run two full training cycles in 2026, each comprising 3 face-to-face days at RuDi plus 2 online sessions, formalising the curriculum as a replicable model.</p>
-        <span class="tl-tag training">Training</span>
-      </div>
-
-      <div class="tl-item">
-        <h3>Extend Volunteer Projects to All Communities</h3>
-        <p>Replicate the Arabic volunteer project model across Farsi/Dari, Ukrainian, and Russian communities. Support 2 to 3 community-led projects per language.</p>
-        <span class="tl-tag event">Event</span>
-      </div>
-
-      <div class="tl-item">
-        <h3>Grow Russian Community Programme</h3>
-        <p>Conduct community needs assessment, recruit additional Russian-speaking mobiliser, and expand outreach to Russian-speaking shelters.</p>
-        <span class="tl-tag event">Event</span>
-      </div>
-
-      <div class="tl-item">
-        <h3>Launch Community Conference</h3>
-        <p>Organise a one-day conference on trauma-sensitive communities, featuring community volunteer speakers and bringing together practitioners and policymakers.</p>
-        <span class="tl-tag event">Event</span>
-      </div>
-
-      <div class="tl-item">
-        <h3>Develop Podcast Series</h3>
-        <p>Produce 5 episodes featuring community members, project team, and partners, in Arabic, Farsi/Dari, Ukrainian, Russian, and English.</p>
-        <span class="tl-tag media">Media</span>
-      </div>
-
-      <div class="tl-item">
-        <h3>Implement Systematic Monitoring</h3>
-        <p>Standardise session recording, introduce participant wellbeing check-ins, and build quarterly reporting routines.</p>
-        <span class="tl-tag training">Training</span>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer>
@@ -1012,7 +917,6 @@
     <a href="https://ipsocontext.org/de" target="_blank">IPSO</a>
     <a href="#about">About</a>
     <a href="#impact">Impact</a>
-    <a href="#plan">2026 Plan</a>
   </div>
   <p>
     City.Zen, a project by <a href="https://ipsocontext.org/de" target="_blank">IPSO gGmbH</a>
