@@ -468,22 +468,27 @@
   }
 
   /* --- GALLERY --- */
-  #gallery { background: var(--deep); padding: 3rem 2rem; }
-  .gallery-wrap {
-    position: relative; width: 50%; margin: 0 auto;
-    overflow: hidden; user-select: none;
+  #gallery { background: var(--deep); padding: 3rem 0; }
+  .gallery-outer {
+    position: relative; width: 100%; overflow: hidden; user-select: none;
+  }
+  .gallery-track {
+    display: flex; align-items: center;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
   }
   .gallery-slide {
-    position: absolute; top: 0; left: 0; width: 100%;
-    opacity: 0; transition: opacity 0.7s ease;
-    pointer-events: none;
+    flex-shrink: 0; width: 60%; padding: 0 0.6rem;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0.35; transform: scale(0.92);
+    cursor: pointer;
   }
   .gallery-slide.active {
-    opacity: 1; position: relative; pointer-events: auto;
+    opacity: 1; transform: scale(1);
   }
   .gallery-slide img {
-    width: 100%; height: auto; max-height: 400px;
-    object-fit: contain; display: block;
+    width: 100%; height: auto; max-height: 420px;
+    object-fit: contain; display: block; border-radius: 6px;
   }
   .gallery-btn {
     position: absolute; top: 50%; transform: translateY(-50%);
@@ -496,9 +501,12 @@
   .gallery-btn:hover { background: rgba(212,120,42,0.6); }
   .gallery-btn.prev { left: 1.2rem; }
   .gallery-btn.next { right: 1.2rem; }
+  .gallery-meta {
+    display: flex; justify-content: center; align-items: center;
+    gap: 1.2rem; margin-top: 1.2rem; padding: 0 2rem;
+  }
   .gallery-dots {
-    position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 6px; z-index: 2;
+    display: flex; gap: 6px;
   }
   .gallery-dot {
     width: 7px; height: 7px; border-radius: 50%;
@@ -509,17 +517,15 @@
     background: var(--olive-light); transform: scale(1.35);
   }
   .gallery-counter {
-    position: absolute; top: 1rem; right: 1.4rem;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 0.75rem; color: rgba(255,255,255,0.5);
-    z-index: 2; letter-spacing: 1px;
+    font-size: 0.75rem; color: rgba(255,255,255,0.4);
+    letter-spacing: 1px; min-width: 3rem; text-align: right;
   }
   .gallery-paused {
-    position: absolute; top: 1rem; left: 1.4rem;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 0.7rem; color: rgba(255,255,255,0.35);
-    z-index: 2; letter-spacing: 1px; text-transform: uppercase;
-    opacity: 0; transition: opacity 0.4s;
+    font-size: 0.7rem; color: rgba(255,255,255,0.3);
+    letter-spacing: 1px; text-transform: uppercase;
+    opacity: 0; transition: opacity 0.4s; min-width: 3rem;
   }
   .gallery-paused.show { opacity: 1; }
 
@@ -992,45 +998,46 @@
 
 <!-- GALLERY -->
 <section id="gallery">
-  <div class="gallery-wrap" id="galleryWrap">
-    <div class="gallery-paused" id="galleryPaused">Paused</div>
-    <div class="gallery-counter" id="galleryCounter">1 / 30</div>
-
-    <div class="gallery-slide active"><img src="photos/photo_1_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_2_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_3_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_4_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_5_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_6_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_7_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_8_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_9_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_10_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_11_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_12_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_13_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_14_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_15_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_16_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_17_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_18_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_19_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_20_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_21_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_22_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_23_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_24_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_25_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_26_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_27_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_28_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_29_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-    <div class="gallery-slide"><img src="photos/photo_30_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
-
+  <div class="gallery-outer" id="galleryOuter">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-slide active"><img src="photos/photo_1_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_2_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_3_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_4_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_5_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_6_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_7_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_8_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_9_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_10_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_11_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_12_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_13_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_14_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_15_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_16_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_17_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_18_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_19_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_20_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_21_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_22_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_23_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_24_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_25_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_26_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_27_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_28_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_29_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+      <div class="gallery-slide"><img src="photos/photo_30_2026-03-28_15-35-14.jpg" alt="City.Zen"></div>
+    </div>
     <button class="gallery-btn prev" id="galleryPrev">&#8592;</button>
     <button class="gallery-btn next" id="galleryNext">&#8594;</button>
-
+  </div>
+  <div class="gallery-meta">
+    <div class="gallery-paused" id="galleryPaused">Paused</div>
     <div class="gallery-dots" id="galleryDots"></div>
+    <div class="gallery-counter" id="galleryCounter">1 / 30</div>
   </div>
 </section>
 
@@ -1179,49 +1186,63 @@ if (heroCharts) chartObs.observe(heroCharts);
 
 // --- GALLERY ---
 (function() {
-  const slides = document.querySelectorAll('.gallery-slide');
+  const track = document.getElementById('galleryTrack');
+  const slides = Array.from(track.querySelectorAll('.gallery-slide'));
   const dotsEl = document.getElementById('galleryDots');
   const counter = document.getElementById('galleryCounter');
   const pausedEl = document.getElementById('galleryPaused');
   const total = slides.length;
   let current = 0;
-  let paused = false;
   let timer;
+
+  // Each slide is 60% wide; offset so active slide is centered (20% left margin)
+  const slideW = 60;
 
   // Build dots
   slides.forEach((_, i) => {
     const d = document.createElement('div');
     d.className = 'gallery-dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => { goTo(i); pause(); });
+    d.addEventListener('click', () => { goTo(i); pauseAuto(); });
     dotsEl.appendChild(d);
   });
 
-  function goTo(n) {
-    slides[current].classList.remove('active');
-    dotsEl.children[current].classList.remove('active');
-    current = (n + total) % total;
-    slides[current].classList.add('active');
-    dotsEl.children[current].classList.add('active');
+  function updateTrack() {
+    // Center the active slide: offset = -(current * slideW) + 20
+    const offset = -(current * slideW) + 20;
+    track.style.transform = 'translateX(' + offset + '%)';
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    dotsEl.children[current] && Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('active', i === current));
     counter.textContent = (current + 1) + ' / ' + total;
   }
 
-  function next() { goTo(current + 1); }
-  function prev() { goTo(current - 1); }
+  function goTo(n) {
+    current = (n + total) % total;
+    updateTrack();
+  }
 
-  function pause() {
-    paused = true;
+  function pauseAuto() {
     clearInterval(timer);
     pausedEl.classList.add('show');
   }
 
   function startAuto() {
     clearInterval(timer);
-    timer = setInterval(next, 3500);
+    timer = setInterval(() => goTo(current + 1), 3500);
   }
 
-  document.getElementById('galleryNext').addEventListener('click', () => { next(); pause(); });
-  document.getElementById('galleryPrev').addEventListener('click', () => { prev(); pause(); });
+  document.getElementById('galleryNext').addEventListener('click', () => { goTo(current + 1); pauseAuto(); });
+  document.getElementById('galleryPrev').addEventListener('click', () => { goTo(current - 1); pauseAuto(); });
 
+  // Click on adjacent slides to navigate
+  track.addEventListener('click', (e) => {
+    const slide = e.target.closest('.gallery-slide');
+    if (!slide || slide.classList.contains('active')) return;
+    const idx = slides.indexOf(slide);
+    goTo(idx);
+    pauseAuto();
+  });
+
+  updateTrack();
   startAuto();
 })();
 
