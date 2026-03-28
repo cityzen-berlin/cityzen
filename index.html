@@ -478,9 +478,9 @@
     will-change: transform;
   }
   .gallery-slide {
-    flex-shrink: 0; width: 60%; padding: 0 0.6rem;
+    flex-shrink: 0; width: 70%; padding: 0 0.8rem;
     transition: transform 0.5s ease, opacity 0.5s ease;
-    opacity: 0.35; transform: scale(0.92);
+    opacity: 0.4; transform: scale(0.94);
     cursor: pointer;
   }
   .gallery-slide.active {
@@ -1195,9 +1195,6 @@ if (heroCharts) chartObs.observe(heroCharts);
   let current = 0;
   let timer;
 
-  // Each slide is 60% wide; offset so active slide is centered (20% left margin)
-  const slideW = 60;
-
   // Build dots
   slides.forEach((_, i) => {
     const d = document.createElement('div');
@@ -1207,12 +1204,16 @@ if (heroCharts) chartObs.observe(heroCharts);
   });
 
   function updateTrack() {
-    // Center the active slide: offset = -(current * slideW) + 20
-    const offset = -(current * slideW) + 20;
-    track.style.transform = 'translateX(' + offset + '%)';
     slides.forEach((s, i) => s.classList.toggle('active', i === current));
-    dotsEl.children[current] && Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('active', i === current));
+    Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('active', i === current));
     counter.textContent = (current + 1) + ' / ' + total;
+    // Pixel-based centering: shift so active slide centre aligns with outer centre
+    const outer = track.parentElement;
+    const slideEl = slides[current];
+    const outerW = outer.offsetWidth;
+    const slideW = slideEl.offsetWidth;
+    const offset = -(current * slideW) + (outerW / 2) - (slideW / 2);
+    track.style.transform = 'translateX(' + offset + 'px)';
   }
 
   function goTo(n) {
@@ -1244,6 +1245,7 @@ if (heroCharts) chartObs.observe(heroCharts);
 
   updateTrack();
   startAuto();
+  window.addEventListener('resize', updateTrack);
 })();
 
 </script>
