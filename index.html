@@ -467,6 +467,29 @@
     color: var(--olive-light);
   }
 
+  /* --- TEAM --- */
+  #team { background: var(--warm); }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.2rem; margin-top: 2rem;
+  }
+  .team-card {
+    background: white; border-radius: 6px; padding: 1.4rem 1.2rem;
+    border: 1px solid rgba(0,0,0,0.06); text-align: center;
+  }
+  .team-name {
+    font-size: 0.95rem; font-weight: 600; color: var(--deep);
+  }
+  .team-role {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.75rem; color: var(--olive);
+    margin-top: 0.3rem;
+  }
+  .team-card.director {
+    border-top: 3px solid var(--olive);
+  }
+
   /* --- FOOTER --- */
   footer {
     background: var(--deep); color: rgba(255,255,255,0.6);
@@ -912,6 +935,44 @@
 
 
 
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="section-label">The Team</div>
+    <h2 class="section-title">People behind City.Zen</h2>
+    <div class="team-grid">
+      <div class="team-card fade-in">
+        <div class="team-name">Olena Lysenko</div>
+        <div class="team-role">Ukrainian Community</div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-name">Elena Korchagina</div>
+        <div class="team-role">Russian Community</div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-name">Sara El Dayekh</div>
+        <div class="team-role">Arabic Community</div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-name">Shoaib Salangi</div>
+        <div class="team-role">Farsi/Dari Community</div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-name">Dr. Mina Orang</div>
+        <div class="team-role"></div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-name">Dr. Emad Ahmadi</div>
+        <div class="team-role">Project Manager</div>
+      </div>
+      <div class="team-card director fade-in">
+        <div class="team-name">Maryam Gardisi</div>
+        <div class="team-role">Managing Director</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-links">
@@ -922,9 +983,6 @@
   <p>
     City.Zen, a project by <a href="https://ipsocontext.org/de" target="_blank">IPSO gGmbH</a>
     in collaboration with Partizipationsbüro Friedrichshain-Kreuzberg Berlin
-  </p>
-  <p style="margin-top:0.5rem;font-size:0.75rem;color:rgba(255,255,255,0.35);">
-    Dr. Emad Ahmadi (Project Manager) · Maryam Gardisi (Managing Director)
   </p>
 </footer>
 
