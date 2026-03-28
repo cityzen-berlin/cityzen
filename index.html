@@ -470,18 +470,19 @@
   /* --- GALLERY --- */
   #gallery { background: var(--deep); padding: 0; }
   .gallery-wrap {
-    position: relative; width: 100%; height: 70vh; min-height: 420px;
+    position: relative; width: 100%;
     overflow: hidden; user-select: none;
   }
   .gallery-slide {
-    position: absolute; inset: 0;
+    position: absolute; top: 0; left: 0; width: 100%;
     opacity: 0; transition: opacity 0.7s ease;
-    background: #000;
+    pointer-events: none;
   }
-  .gallery-slide.active { opacity: 1; }
+  .gallery-slide.active {
+    opacity: 1; position: relative; pointer-events: auto;
+  }
   .gallery-slide img {
-    width: 100%; height: 100%; object-fit: cover;
-    display: block; opacity: 0.88;
+    width: 100%; height: auto; display: block;
   }
   .gallery-btn {
     position: absolute; top: 50%; transform: translateY(-50%);
